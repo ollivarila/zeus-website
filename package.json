@@ -13,9 +13,11 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.1",
     "@mui/material": "^5.15.1",
+    "iron-session": "^8.0.1",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
