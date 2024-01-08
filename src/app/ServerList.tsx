@@ -3,11 +3,9 @@ import Server from '@/components/Server'
 import { getSession } from '@/lib/session'
 import { allServers } from '@/lib/controller'
 import RefreshButton from '@/components/RefreshButton'
+import { Suspense } from 'react'
 
 export default async function ServerList() {
-  const session = await getSession()
-  const loggedIn = session.username !== undefined
-  const servers = await allServers()
   return (
     <div>
       <Appear delay={200}>
@@ -17,12 +15,25 @@ export default async function ServerList() {
         </div>
       </Appear>
       <div className="grid lg:grid-cols-3 gap-2 md:grid-cols-2">
-        {servers.map((server, i) => (
-          <Appear delay={200 + i * 50} key={server.name + i}>
-            <Server {...server} loggedIn={loggedIn} />
-          </Appear>
-        ))}
+        <Suspense fallback={<div className="text-cyan-100">Loading...</div>}>
+          <Servers />
+        </Suspense>
       </div>
     </div>
+  )
+}
+
+async function Servers() {
+  const session = await getSession()
+  const loggedIn = session.username !== undefined
+  const servers = await allServers()
+  return (
+    <>
+      {servers.map((server, i) => (
+        <Appear delay={200 + i * 50} key={server.name + i}>
+          <Server {...server} loggedIn={loggedIn} />
+        </Appear>
+      ))}
+    </>
   )
 }
