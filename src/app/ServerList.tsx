@@ -1,20 +1,28 @@
-import { servers } from "@/constants";
-import Appear from "@/components/Appear";
-import Server from "@/components/Server";
+import Appear from '@/components/Appear'
+import Server from '@/components/Server'
+import { getSession } from '@/lib/session'
+import { allServers } from '@/lib/controller'
+import RefreshButton from '@/components/RefreshButton'
 
-export default function ServerList() {
+export default async function ServerList() {
+  const session = await getSession()
+  const loggedIn = session.username !== undefined
+  const servers = await allServers()
   return (
     <div>
-      <Appear delay={1000}>
-        <p className="text-cyan-100 mb-2">Game servers:</p>
+      <Appear delay={200}>
+        <div className="flex flex-row justify-between mb-2">
+          <p className="text-cyan-100">Game servers:</p>
+          <RefreshButton />
+        </div>
       </Appear>
       <div className="grid lg:grid-cols-3 gap-2 md:grid-cols-2">
         {servers.map((server, i) => (
-          <Appear delay={1000 + 200 * i} key={server.name + i}>
-            <Server {...server} />
+          <Appear delay={200 + i * 50} key={server.name + i}>
+            <Server {...server} loggedIn={loggedIn} />
           </Appear>
         ))}
       </div>
     </div>
-  );
+  )
 }

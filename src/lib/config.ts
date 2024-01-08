@@ -4,6 +4,7 @@ const envSchema = z.object({
   COOKIE_SECRET: z.string().default("a-very-secret-cookie-secret-AAAAAAAAAA"),
   USERNAME: z.string().default("admin"),
   PASSWORD: z.string(),
+  CONTROLLER_PORT: z.string(),
 })
 
 const env = envSchema.parse(process.env)

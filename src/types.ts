@@ -1,3 +1,4 @@
-export type User = {
+export type SessionData = {
   username: string
+  isLoggedIn: boolean
 }

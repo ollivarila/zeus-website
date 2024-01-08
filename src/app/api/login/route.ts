@@ -1,27 +1,32 @@
-import { NextApiRequest } from "next";
-import {getIronSession} from "iron-session"
-import {cookies} from 'next/headers'
-import { NextRequest } from "next/server";
-import config from "@/lib/config";
-import { User } from "@/types";
+import { getIronSession } from 'iron-session'
+import { cookies } from 'next/headers'
+import { NextRequest } from 'next/server'
+import config from '@/lib/config'
+import { SessionData } from '@/types'
 
 export const POST = async (req: NextRequest) => {
-  const { username, password }= await req.json()
+  const formData = await req.formData()
+  const username = formData.get('username')?.toString()
+  const password = formData.get('password')?.toString()
   if (!username || !password) {
-    return new Response(null, {status: 400})
+    return Response.redirect(`${req.nextUrl.origin}/login`, 303)
   }
-  
+
   const weCool = checkCreds(username, password)
   if (!weCool) {
-    return new Response(null, {status: 401})
+    return Response.redirect(`${req.nextUrl.origin}/login`, 303)
   }
 
-  const session = await getIronSession<User>(cookies(), config.sessionOptions)
+  const session = await getIronSession<SessionData>(
+    cookies(),
+    config.sessionOptions
+  )
   session.username = username
+  session.isLoggedIn = true
   await session.save()
-  return new Response(null, {status: 200})
-}
 
+  return Response.redirect(`${req.nextUrl.origin}/`, 303)
+}
 
 function checkCreds(username: string, password: string) {
   const { USERNAME, PASSWORD } = process.env

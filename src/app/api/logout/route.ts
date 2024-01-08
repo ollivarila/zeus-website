@@ -1,11 +1,10 @@
 import config from "@/lib/config";
 import { getIronSession } from "iron-session";
-import { NextApiRequest } from "next";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { NextRequest } from "next/server";
 
-export const GET = async (_req: NextApiRequest) => {
+export const POST = async (req: NextRequest) => {
   const session = await getIronSession(cookies(), config.sessionOptions);
   session.destroy();
-  redirect("/")
+  return Response.redirect(`${req.nextUrl.origin}/`, 303);
 }
