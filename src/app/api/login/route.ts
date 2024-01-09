@@ -4,6 +4,8 @@ import { NextRequest } from 'next/server'
 import config from '@/lib/config'
 import { SessionData } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 export const POST = async (req: NextRequest) => {
   const formData = await req.formData()
   const username = formData.get('username')?.toString()
@@ -29,6 +31,6 @@ export const POST = async (req: NextRequest) => {
 }
 
 function checkCreds(username: string, password: string) {
-  const { USERNAME, PASSWORD } = process.env
-  return username === USERNAME && password === PASSWORD
+  const { USER, PASSWORD } = config
+  return username === USER && password === PASSWORD
 }

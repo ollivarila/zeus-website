@@ -1,6 +1,8 @@
-import { NextApiRequest } from 'next'
+import { NextRequest } from 'next/server'
 
-export async function GET(_req: NextApiRequest) {
+export const dynamic = 'force-dynamic'
+
+export async function GET(_req: NextRequest) {
   const data = {
     message: 'Hello world',
   }
