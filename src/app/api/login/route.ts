@@ -11,12 +11,12 @@ export const POST = async (req: NextRequest) => {
   const username = formData.get('username')?.toString()
   const password = formData.get('password')?.toString()
   if (!username || !password) {
-    return Response.redirect(`${req.nextUrl.origin}/login`, 303)
+    return redirectHome(req)
   }
 
   const weCool = checkCreds(username, password)
   if (!weCool) {
-    return Response.redirect(`${req.nextUrl.origin}/login`, 303)
+    return redirectHome(req)
   }
 
   const session = await getIronSession<SessionData>(
@@ -27,10 +27,17 @@ export const POST = async (req: NextRequest) => {
   session.isLoggedIn = true
   await session.save()
 
-  return Response.redirect(`${req.nextUrl.origin}/`, 303)
+  return redirectHome(req)
 }
 
 function checkCreds(username: string, password: string) {
   const { USER, PASSWORD } = config
   return username === USER && password === PASSWORD
+}
+
+function redirectHome(req: NextRequest) {
+  const prodUrl = 'https://skd.servegame.com/login' // TODO use config
+  const devUrl = `${req.nextUrl.origin}/login`
+  const url = process.env.NODE_ENV === 'production' ? prodUrl : devUrl
+  return Response.redirect(url, 303)
 }
