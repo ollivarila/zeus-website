@@ -36,8 +36,8 @@ function checkCreds(username: string, password: string) {
 }
 
 function redirectHome(req: NextRequest) {
-  const prodUrl = 'https://skd.servegame.com/login' // TODO use config
-  const devUrl = `${req.nextUrl.origin}/login`
+  const prodUrl = 'https://skd.servegame.com' // TODO use config
+  const devUrl = `${req.nextUrl.origin}`
   const url = process.env.NODE_ENV === 'production' ? prodUrl : devUrl
   return Response.redirect(url, 303)
 }
