@@ -7,6 +7,8 @@ Through the website, one can easily check the status and the address of the serv
 Zeus is supposed to be run as a pod on the cluster.
 The pod consists of two containers: this website in this repo and the [controller](https://github.com/ollivarila/zeus-controller).
 
+If the server is running it should be available [here](https://skd.servegame.com)
+
 ## Contents
 
 This repository contains the website created with Next.js.
@@ -34,4 +36,5 @@ COOKIE_SECRET=`cookie secret`
 
 ## Links
 
+- [live website](https://skd.servegame.com)
 - [container image](https://hub.docker.com/repository/docker/ollivarila/zeus-web/general)
