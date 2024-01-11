@@ -7,9 +7,9 @@ import { Suspense } from 'react'
 
 export default async function ServerList() {
   return (
-    <div>
+    <div className="md:w-auto w-full p-8">
       <Appear delay={200}>
-        <div className="flex flex-row justify-between mb-2">
+        <div className="flex flex-row justify-between mb-2 gap-2 ">
           <p className="text-cyan-100">Game servers:</p>
           <RefreshButton />
         </div>

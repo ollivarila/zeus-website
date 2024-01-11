@@ -22,8 +22,8 @@ export default function Server({
   const url = 'skd.servegame.com'
 
   return (
-    <div className="flex flex-row bg-slate-800 justify-between p-2">
-      <div className="flex flex-col items-start gap-4 shadow-lg p-4 rounded-sm">
+    <div className="flex flex-row bg-slate-800 justify-between p-2 shadow-md rounded-md">
+      <div className="flex flex-col items-start gap-4 p-4">
         <div className="flex items-center">
           <h2 className={text.h2}>
             {capitalize(name)} v.{version}

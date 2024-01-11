@@ -37,7 +37,7 @@ export default function Toggle({ status, name }: ToggleProps) {
   }
 
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick} className="hover:bg-slate-800">
       {isOn ? (
         <ToggleOn className="text-green-300" />
       ) : (
