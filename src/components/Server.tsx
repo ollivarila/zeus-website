@@ -3,6 +3,7 @@ import { Check, PowerOff } from '@mui/icons-material'
 import CopyButton from './CopyButton'
 import { capitalize } from '@/lib/util'
 import ToggleBtn from './ToggleBtn'
+import config from '@/lib/config'
 
 export type ServerProps = {
   name: string
@@ -10,6 +11,7 @@ export type ServerProps = {
   loggedIn: boolean
   status: string
   version: string
+  port: number
 }
 
 export default function Server({
@@ -18,8 +20,9 @@ export default function Server({
   loggedIn,
   status,
   version,
+  port,
 }: ServerProps) {
-  const url = 'skd.servegame.com'
+  const url = `${config.PROD_URL}:${port}`
 
   return (
     <div className="flex flex-row bg-slate-800 justify-between p-2 shadow-md rounded-md">

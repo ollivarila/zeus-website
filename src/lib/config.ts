@@ -2,9 +2,10 @@ import z from 'zod'
 
 const envSchema = z.object({
   COOKIE_SECRET: z.string().default('a-very-secret-cookie-secret-AAAAAAAAAA'),
-  USER: z.string().default('test'),
+  ADMIN_USERNAME: z.string().default('test'),
   PASSWORD: z.string().default('test'),
   CONTROLLER_PORT: z.string().default('3001'),
+  PROD_URL: z.string().default('skd.servegame.com'),
 })
 
 const env = envSchema.parse(process.env)

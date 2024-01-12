@@ -2,7 +2,7 @@
 import { z } from 'zod'
 import config from './config'
 import { getSession } from './session'
-const baseUrl = `http://localhost:${config.CONTROLLER_PORT}`
+const baseUrl = `http://localhost:${config.CONTROLLER_PORT}` // Controller always running on localhost
 
 const resSchema = z.object({
   message: z.string(),
@@ -37,6 +37,7 @@ const serverInfoSchema = z.array(
     status: z.string(),
     version: z.string(),
     description: z.string(),
+    port: z.number(),
   })
 )
 
@@ -59,20 +60,7 @@ async function safeFetch<T>(
     const data = await res.json()
     return schema.parse(data)
   } catch (error) {
-    console.error('Error fetching: ', (error as Error).message)
+    console.error('Error: ', (error as Error).message)
     return null
   }
-}
-
-let running = false
-
-export async function test() {
-  running = !running
-  await sleep(1000)
-
-  return true
-}
-
-async function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
 }

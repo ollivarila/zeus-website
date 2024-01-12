@@ -31,12 +31,12 @@ export const POST = async (req: NextRequest) => {
 }
 
 function checkCreds(username: string, password: string) {
-  const { USER, PASSWORD } = config
-  return username === USER && password === PASSWORD
+  const { ADMIN_USERNAME, PASSWORD } = config
+  return username === ADMIN_USERNAME && password === PASSWORD
 }
 
 function redirectHome(req: NextRequest) {
-  const prodUrl = 'https://skd.servegame.com' // TODO use config
+  const prodUrl = `https://${config.PROD_URL}`
   const devUrl = `${req.nextUrl.origin}`
   const url = process.env.NODE_ENV === 'production' ? prodUrl : devUrl
   return Response.redirect(url, 303)
