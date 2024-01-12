@@ -23,6 +23,38 @@ export default async function ServerList() {
   )
 }
 
+// type Server = Awaited<ReturnType<typeof allServers>>[number]
+// const mockServers: Server[] = [
+//   {
+//     name: 'Server 1',
+//     description: 'This is a server',
+//     port: 25565,
+//     status: 'Running',
+//     version: '1.16.5',
+//   },
+//   {
+//     name: 'Server 1',
+//     description: 'This is a server',
+//     port: 25565,
+//     status: 'Running',
+//     version: '1.16.5',
+//   },
+//   {
+//     name: 'Server 1',
+//     description: 'This is a server',
+//     port: 25565,
+//     status: 'Running',
+//     version: '1.16.5',
+//   },
+//   {
+//     name: 'Server 1',
+//     description: 'This is a server',
+//     port: 25565,
+//     status: 'Running',
+//     version: '1.16.5',
+//   },
+// ]
+
 async function Servers() {
   const session = await getSession()
   const loggedIn = session.username !== undefined

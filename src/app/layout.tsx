@@ -23,13 +23,13 @@ export default function RootLayout({
       <body
         className={
           inter.className +
-          ' bg-gray-900 flex flex-col justify-evenly md:h-screen sm:h-auto'
+          ' bg-gray-900 flex flex-col justify-between min-h-screen'
         }
       >
         {children}
         <Footer />
-        <ToastContainer />
       </body>
+      <ToastContainer />
     </html>
   )
 }
