@@ -30,10 +30,11 @@ _Note: You will need the controller and minikube or equiv to be able to spin up 
 Create _.env.local_ file with following contents:
 
 ```
-USER=`username`
+ADMIN_USERNAME=`username`
 PASSWORD=`password`
 CONTROLLER_PORT=`port where the controller is running`
 COOKIE_SECRET=`cookie secret`
+PROD_URL=`production fqdn without proto`
 ```
 
 ## Links
