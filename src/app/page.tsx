@@ -3,6 +3,11 @@ import ServerList from './ServerList'
 import SessionButton from '@/components/SessionButton'
 import { getSession } from '@/lib/session'
 
+// TODO add animation for refresh
+// TODO smoother refresh experience
+// TODO skeletons
+// TODO better toggle exp
+
 export default async function Home() {
   const session = await getSession()
   const loggedIn = session.username !== undefined

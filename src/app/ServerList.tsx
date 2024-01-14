@@ -1,11 +1,11 @@
 import Appear from '@/components/Appear'
-import Server from '@/components/Server'
 import { getSession } from '@/lib/session'
-import { allServers } from '@/lib/controller'
 import RefreshButton from '@/components/RefreshButton'
-import { Suspense } from 'react'
+import { Servers } from '@/components/Servers'
 
 export default async function ServerList() {
+  const session = await getSession()
+  const loggedIn = session.isLoggedIn
   return (
     <div className="md:w-auto w-full p-8">
       <Appear delay={200}>
@@ -15,57 +15,8 @@ export default async function ServerList() {
         </div>
       </Appear>
       <div className="grid lg:grid-cols-3 gap-2 md:grid-cols-2">
-        <Suspense fallback={<div className="text-cyan-100">Loading...</div>}>
-          <Servers />
-        </Suspense>
+        <Servers loggedIn={loggedIn} />
       </div>
     </div>
-  )
-}
-
-// type Server = Awaited<ReturnType<typeof allServers>>[number]
-// const mockServers: Server[] = [
-//   {
-//     name: 'Server 1',
-//     description: 'This is a server',
-//     port: 25565,
-//     status: 'Running',
-//     version: '1.16.5',
-//   },
-//   {
-//     name: 'Server 1',
-//     description: 'This is a server',
-//     port: 25565,
-//     status: 'Running',
-//     version: '1.16.5',
-//   },
-//   {
-//     name: 'Server 1',
-//     description: 'This is a server',
-//     port: 25565,
-//     status: 'Running',
-//     version: '1.16.5',
-//   },
-//   {
-//     name: 'Server 1',
-//     description: 'This is a server',
-//     port: 25565,
-//     status: 'Running',
-//     version: '1.16.5',
-//   },
-// ]
-
-async function Servers() {
-  const session = await getSession()
-  const loggedIn = session.username !== undefined
-  const servers = await allServers()
-  return (
-    <>
-      {servers.map((server, i) => (
-        <Appear delay={200 + i * 50} key={server.name + i}>
-          <Server {...server} loggedIn={loggedIn} />
-        </Appear>
-      ))}
-    </>
   )
 }

@@ -1,10 +1,9 @@
 'use client'
 
 import { shutdown, start } from '@/lib/controller'
+import { useServerStore } from '@/lib/store'
 import { notify } from '@/lib/toast'
 import { ToggleOff, ToggleOn } from '@mui/icons-material'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState, useTransition } from 'react'
 
 type ToggleProps = {
   status: string
@@ -12,28 +11,19 @@ type ToggleProps = {
 }
 
 export default function Toggle({ status, name }: ToggleProps) {
+  const setStatus = useServerStore((state) => state.setStatus)
   const isOn = status === 'Running'
-  const [isPending, startTransition] = useTransition()
-  const onClick = () => {
-    startTransition(async () => {
-      if (isPending) {
-        return
-      }
-      let message = ''
-      if (isOn) {
-        const data = await shutdown(name.toLowerCase())
-        message = data.message
-      } else {
-        const data = await start(name.toLowerCase())
-        message = data.message
-      }
 
-      notify(message)
-    })
-  }
+  const onClick = async () => {
+    const res = isOn
+      ? await shutdown(name.toLowerCase())
+      : await start(name.toLowerCase())
 
-  if (isPending) {
-    return <button disabled>...</button>
+    notify(res.message)
+    if (res.ok) {
+      const newStatus = isOn ? 'Stopped' : 'Running'
+      setStatus(name.toLowerCase(), newStatus)
+    }
   }
 
   return (

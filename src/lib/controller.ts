@@ -10,25 +10,31 @@ const resSchema = z.object({
 
 const POST = { method: 'POST' }
 
-export async function start(name: string) {
+type Result = { message: string; ok: boolean }
+
+export async function start(name: string): Promise<Result> {
   const session = await getSession()
   if (!session.isLoggedIn) {
-    return { message: 'Not logged in' }
+    return { message: 'Not logged in', ok: false }
   }
 
   const url = `${baseUrl}/pods/run?name=${name}`
   const data = await safeFetch(url, resSchema, POST)
-  return data ?? { message: 'Error starting server' }
+  return data
+    ? { message: data.message, ok: true }
+    : { message: 'Error starting server', ok: false }
 }
 
-export async function shutdown(name: string) {
+export async function shutdown(name: string): Promise<Result> {
   const session = await getSession()
   if (!session.isLoggedIn) {
-    return { message: 'Not logged in' }
+    return { message: 'Not logged in', ok: false }
   }
   const url = `${baseUrl}/pods/shutdown?name=${name}`
   const data = await safeFetch(url, resSchema, POST)
-  return data ?? { message: 'Error shutting down server' }
+  return data
+    ? { message: data.message, ok: true }
+    : { message: 'Error starting server', ok: false }
 }
 
 const serverInfoSchema = z.array(
