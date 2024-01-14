@@ -9,7 +9,7 @@ Zeus is supposed to be run as a pod on a Kubernetes cluster.
 The pod consists of two containers: this website in this repo and the [controller](https://github.com/ollivarila/zeus-controller).
 Additional configuration is required to route traffic but not getting into specifics here.
 
-If the server is running it should be available [here](https://skd.servegame.com)
+If the server is running it should be available [here](https://zeus.servegame.com)
 
 ## Contents
 
@@ -39,5 +39,5 @@ PROD_URL=`production fqdn without proto`
 
 ## Links
 
-- [live website](https://skd.servegame.com)
+- [live website](https://zeus.servegame.com)
 - [container image](https://hub.docker.com/repository/docker/ollivarila/zeus-web/general)
