@@ -5,7 +5,7 @@ const envSchema = z.object({
   ADMIN_USERNAME: z.string().default('test'),
   PASSWORD: z.string().default('test'),
   CONTROLLER_PORT: z.string().default('3001'),
-  PROD_URL: z.string().default('skd.servegame.com'),
+  PROD_URL: z.string().default('zeus.servegame.com'),
 })
 
 const env = envSchema.parse(process.env)
